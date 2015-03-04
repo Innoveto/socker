@@ -15,9 +15,9 @@ socker.on('statechange', function (state) {
 });
 
 io.on('connection', function(socket) {
-  //emit all states
-  socker.getAllStates().forEach(function (state) {
-    socket.emit('statechange:' + state.Name, state);
+
+  socket.on('getstate', function (containerName) {
+    socket.emit('statechange:' + containerName, socker.getState(containerName));
   });
 
   debug('socket.io connected');
