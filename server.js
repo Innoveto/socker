@@ -16,11 +16,20 @@ socker.on('statechange', function (state) {
 
 io.on('connection', function(socket) {
 
+  debug('socket.io connected');
+
+  socket.on('getstates', function () {
+    socket.emit('getstates', socker.getAllStates());
+  });
+
   socket.on('getstate', function (containerName) {
     socket.emit('statechange:' + containerName, socker.getState(containerName));
   });
 
-  debug('socket.io connected');
+  socket.on('attachstream', function (containerName) {
+    //TODO
+  });
+
   socket.on('disconnect', function() {
     debug('socket.io disconnect');
   });
